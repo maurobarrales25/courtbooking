@@ -1,0 +1,20 @@
+# [.gitignore]
+[Bb]in/
+[Oo]bj/
+
+#VS Code
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Herramientas de .NET
+project.lock.json
+project.assets.json
+.dotnet/
+
+
+appsettings.Development.json
+secrets.json
+
