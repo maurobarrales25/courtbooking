@@ -18,3 +18,7 @@ project.assets.json
 appsettings.Development.json
 secrets.json
 
+
+.context/
+.claude/
+CLAUDE.md
