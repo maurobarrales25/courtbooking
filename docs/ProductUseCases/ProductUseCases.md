@@ -428,6 +428,152 @@
 
 
 ---
+
+## PUC-09 — Administrar canchas del complejo
+
+
+
+> **Decisión de automatización:** El producto automatiza el alta, modificación, deshabilitación y visualización de canchas del complejo. Las tareas físicas de mantenimiento de las canchas quedan fuera del alcance del producto.
+
+
+| Campo | Descripción |
+|---|---|
+| **Nombre** | Administrar canchas del complejo |
+| **Disparador** | El administrador necesita registrar o modificar una cancha del complejo. Datos que ingresan: nombre, tipo, características y estado de la cancha. |
+| **Precondiciones** | El administrador tiene permisos sobre el complejo. |
+| **Interesados** | Dueño del complejo. Usuario. |
+| **Actores** | Administrador del complejo. |
+
+
+**Pasos del caso normal:**
+
+
+1. El administrador selecciona crear o modificar una cancha.
+2. Recibe los datos de la cancha.
+3. El administrador ingresa los nuevos datos.
+4. Verifica que la información sea válida y consistente.
+5. Registra o actualiza la cancha en el complejo.
+6. Actualiza la disponibilidad de reservas asociada a la cancha.
+7. El sistema notifica la confirmación de los cambios realizados.
+8. La cancha creada o modificada aparece con los nuevos datos en el sistema. 
+
+
+**Alternativas:**
+
+
+- **A1.1** — El administrador deshabilita una cancha: deja de mostrar disponibilidad futura para esa cancha. (Sigue en paso 5)
+- **A2.1** — El administrador reactiva una cancha previamente deshabilitada: vuelve a habilitar su disponibilidad. (Sigue en paso 2)
+
+
+**Excepciones:**
+
+
+- **E3.1** — Los datos de la cancha son inválidos o incompletos: informa el error y solicita corrección.
+- **E4.1** — Existen reservas futuras incompatibles con la deshabilitación: informa al administrador y no aplica el cambio.
+
+
+| **Resultado** | La información de las canchas del complejo queda actualizada y visible en el sistema. |
+|---|---|
+
+
+---
+
+
+## PUC-10 — Administrar horarios de operación
+
+
+**BUC origen:** 
+
+
+> **Decisión de automatización:** El producto automatiza la configuración y actualización de los horarios operativos de las canchas del complejo. La definición estratégica de los horarios comerciales queda bajo responsabilidad del administrador del complejo.
+
+
+| Campo | Descripción |
+|---|---|
+| **Nombre** | Administrar horarios de operación |
+| **Disparador** | El administrador del complejo necesita crear, modificar o deshabilitar horarios operativos. Datos que ingresan: cancha, días, horarios y vigencia. |
+| **Precondiciones** | El administrador tiene permisos sobre el complejo. El complejo posee al menos una cancha registrada. |
+| **Interesados** | Dueño del complejo. Usuario. |
+| **Actores** | Administrador del complejo. |
+
+
+**Pasos del caso normal:**
+
+
+1. El administrador entra en ajustes de complejo.
+2. Recibe la configuración de días y horarios operativos.
+3. Modifica y actualiza los días y/u horarios operativos.
+4. El sistema verifica que los horarios no generen inconsistencias con reservas existentes.
+5. El sistema registra los horarios/días operativos del complejo.
+6. El sistema actualiza la disponibilidad futura de turnos del complejo.
+7. Notifica la actualización de horarios realizada.
+8. Los nuevos horarios/días operativos aparecen actualizados en el sistema.  
+
+
+**Alternativas:**
+
+**Excepciones:**
+
+
+- **E3.1** — Los horarios ingresados se superponen o son inválidos: informa el conflicto y solicita corrección.
+- **E3.2** — Existen reservas confirmadas incompatibles con la modificación: rechaza la actualización e informa al administrador.
+
+
+| **Resultado** | Los horarios operativos del complejo quedan actualizados y disponibles para futuras reservas en el sistema. |
+|---|---|
+
+---
+
+
+## PUC-11 — Consultar historial de reservas
+
+
+**BUC origen:** BUC-11 — Consultar historial
+
+
+> **Decisión de automatización:** El producto automatiza la consulta y visualización del historial de reservas y estados asociados. La interpretación administrativa de la información queda fuera del alcance del producto.
+
+
+| Campo | Descripción |
+|---|---|
+| **Nombre** | Consultar historial de reservas |
+| **Disparador** | Un usuario o administrador solicita consultar reservas anteriores o activas. Datos que ingresan: criterios de búsqueda, fechas o usuario asociado. |
+| **Precondiciones** | El actor tiene permisos para consultar la información solicitada. |
+| **Interesados** | Usuario. Dueño del complejo. |
+| **Actores** | Usuario. Administrador del complejo. |
+
+
+**Pasos del caso normal:**
+
+1. El actor accede al historial de reservas.
+2. Ingresa los criterios de búsqueda seleccionados.
+3. El sistema consulta las reservas asociadas según los filtros ingresados.
+4. El sistema verifica los permisos de acceso sobre la información solicitada.
+5. Muestra el historial de reservas y sus estados.
+6. Permite consultar el detalle de una reserva específica.
+
+
+**Alternativas:**
+
+- **A2.1** — El actor filtra por estado de reserva: muestra únicamente las reservas que cumplen el filtro.
+- **A2.2** — El actor filtra por rango de fechas: muestra únicamente las reservas correspondientes.
+- **A2.2** — El actor filtra por complejo: muestra únicamente las reservas correspondientes a dicho complejo.
+
+
+**Excepciones:**
+
+- **E3.1** — No existen reservas para los criterios ingresados: informa que no hay resultados disponibles.
+- **E4.1** — El actor intenta consultar reservas sin permisos suficientes: rechaza la consulta e informa el motivo. (BR10, BR11, BR12, BR17)
+
+
+| **Resultado** | El actor obtiene acceso al historial de reservas permitido según sus permisos. |
+|---|---|
+
+
+---
+
+
+---
 ### Correspondencia BUC → PUC
 
 
@@ -455,12 +601,12 @@
 | BR-07 Bloqueo temporal durante pago | PUC-01 (paso 5), PUC-01 (E7.1) |
 | BR-08 Expiración de reserva pendiente | PUC-06 (E3.1) |
 | BR-09 Límite de reservas activas | PUC-01 (E4.3) |
-| BR-10 Aislamiento de datos por complejo | PUC-05 (paso 3) |
-| BR-11 Scope del administrador del complejo | PUC-03 (E1.1), PUC-07 (E2.1) |
-| BR-12 Identificador de tenant en toda reserva | PUC-01 (paso 7) |
+| BR-10 Aislamiento de datos por complejo | PUC-05 (paso 3), PUC 11 (E4.1)|
+| BR-11 Scope del administrador del complejo | PUC-03 (E1.1), PUC-07 (E2.1), PUC 11 (E4.1)|
+| BR-12 Identificador de tenant en toda reserva | PUC-01 (paso 7), PUC 11 (E4.1) |
 | BR-13 Configuración independiente por complejo | PUC-05 (paso 5) |
 | BR-14 Estados válidos |PUC-02 (E1.1), PUC-03 (E1.2), PUC-07 (E2.3) |
-| BR-17 Asociación obligatorio a cancha y y usuario | PUC-01 (paso 7) |
+| BR-17 Asociación obligatorio a cancha y y usuario | PUC-01 (paso 7), PUC 11 (E4.1) |
 | BR-18 Cancelación libre | PUC-02 (paso 2) |
 | BR-19 Cancelación por complejo | PUC-03 (paso 2) |
 | BR-20 No show sin reembolso | PUC-07 (paso 3) |
