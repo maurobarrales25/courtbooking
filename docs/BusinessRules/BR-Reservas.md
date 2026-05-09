@@ -23,7 +23,7 @@
 ### BR-01 — Anticipación máxima
 Un usuario no podrá realizar una reserva con más de **30 días** de anticipación respecto a la fecha de inicio.
 
-> **Justificación:** Evita el bloqueo especulativo de canchas que perjudica la disponibilidad para otros jugadores.
+> **Justificación:** Evita el bloqueo especulativo de canchas que perjudica la disponibilidad para otros usuarios.
 >
 > **Criterio de verificación:** El sistema rechaza toda solicitud cuya fecha de inicio supere `hoy + 30 días`.
 
@@ -102,21 +102,21 @@ Cada complejo deportivo opera como un **tenant independiente**. Un complejo no p
 
 > **Justificación:** Garantía de privacidad y confidencialidad comercial entre competidores que comparten la plataforma.
 >
-> **Criterio de verificación:** Todas las consultas de reservas filtran obligatoriamente por `tenantId`. No existe ningún endpoint que devuelva reservas de múltiples tenants en una sola respuesta sin autorización explícita de superadmin.
+> **Criterio de verificación:** Todas las consultas de reservas filtran obligatoriamente por `club_id`. No existe ningún endpoint que devuelva reservas de múltiples tenants en una sola respuesta sin autorización explícita de superadmin.
 
 ---
 
 ### BR-11 — Scope del administrador de complejo
 Un usuario con rol **Administrador de Complejo** únicamente podrá gestionar (crear, modificar, cancelar, consultar) reservas que pertenezcan a **las canchas de su propio complejo**.
 
-> **Criterio de verificación:** Toda operación administrativa valida que `cancha.tenantId == usuario.tenantId`. Un intento de operar sobre una cancha de otro complejo devuelve error 403.
+> **Criterio de verificación:** Toda operación administrativa valida que `cancha.club_id == usuario.club_id`. Un intento de operar sobre una cancha de otro complejo devuelve error 403.
 
 ---
 
 ### BR-12 — Identificador de tenant en toda reserva
-Toda reserva deberá estar asociada al `tenantId` del complejo al que pertenece la cancha reservada. Este campo no puede ser nulo ni modificado una vez asignado.
+Toda reserva deberá estar asociada al `club_id` del complejo al que pertenece la cancha reservada. Este campo no puede ser nulo ni modificado una vez asignado.
 
-> **Criterio de verificación:** El `tenantId` se asigna en el momento de creación de la reserva a partir de la cancha seleccionada y no puede actualizarse posteriormente.
+> **Criterio de verificación:** El `club_id` se asigna en el momento de creación de la reserva a partir de la cancha seleccionada y no puede actualizarse posteriormente.
 
 ---
 
@@ -179,7 +179,7 @@ Toda reserva deberá estar asociada obligatoriamente a:
 
 Ambas asociaciones son no nulas y no pueden modificarse una vez creada la reserva.
 
-> **Criterio de verificación:** El sistema rechaza la creación de reservas con `canchaId` o `usuarioId` nulos o inexistentes.
+> **Criterio de verificación:** El sistema rechaza la creación de reservas con `cancha_id` o `usuario_id` nulos o inexistentes.
 
 ---
 
