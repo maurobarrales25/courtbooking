@@ -378,6 +378,56 @@
 
 
 ---
+## PUC-08 — Ver disponibilidad de canchas
+
+
+**BUC origen:** BUC-05 — Consultar agenda de reservas
+
+
+> **Decisión de automatización:** El producto automatiza la consulta de disponibilidad de canchas y horarios para una fecha determinada. La coordinación posterior entre el usuario y el complejo queda fuera del alcance de este caso de uso.
+
+
+| Campo | Descripción |
+|---|---|
+| **Nombre** | Ver disponibilidad de canchas |
+| **Disparador** | El usuario solicita consultar disponibilidad de canchas para una fecha dada. Datos que ingresan: complejo, fecha y opcionalmente tipo de cancha o rango horario. |
+| **Precondiciones** | El complejo tiene canchas habilitadas y horarios configurados para la fecha consultada. |
+| **Interesados** | Usuario. Dueño del complejo. |
+| **Actores** | Usuario. |
+
+
+**Pasos del caso normal:**
+
+
+1. El usuario selecciona el complejo y la fecha a consultar.
+2. Recibe la solicitud de disponibilidad con los criterios ingresados.
+3. Consulta los turnos disponibles y ocupados de las canchas habilitadas.
+4. Verifica las restricciones de disponibilidad y horarios operativos del complejo.
+5. Muestra las canchas y turnos disponibles para la fecha solicitada.
+6. Permite al usuario seleccionar un turno para continuar una reserva.
+
+
+**Alternativas:**
+
+
+- **A1.1** — El usuario filtra por tipo de cancha: muestra únicamente las canchas que cumplen el filtro seleccionado.
+- **A5.1** — No existen reservas registradas para la fecha consultada: muestra todos los turnos como disponibles.
+- **A6.1** — El usuario decide no continuar con una reserva: finaliza la consulta sin realizar cambios.
+
+
+**Excepciones:**
+
+
+- **E2.1** — La fecha ingresada es inválida: informa al usuario y solicita una fecha válida.
+- **E3.1** — El complejo no tiene canchas habilitadas para la fecha solicitada: informa que no existe disponibilidad (BR-06).
+- **E3.2** — No existen turnos disponibles para los criterios seleccionados: informa al usuario y permite realizar una nueva consulta.
+
+
+| **Resultado** | El usuario obtiene la disponibilidad actualizada de canchas y turnos para la fecha consultada. |
+|---|---|
+
+
+---
 ### Correspondencia BUC → PUC
 
 
@@ -388,6 +438,7 @@
 | BUC-03 El complejo decide cancelar una reserva | PUC-03 | Administrador de Complejo cancela una reserva |
 | BUC-04 Registrar un usuario | PUC-04 | — (proceso totalmente automatizado) |
 | BUC-04 Pagar una reserva | PUC-06 | Pagar una reserva (intermediario de cobro) |
+| BUC-05 Consultar agende de reservas | PUC-08 | Ver disponibilidad de canchas |
 
 
 ### Cobertura de reglas de negocio
@@ -400,7 +451,7 @@
 | BR-03 Incrementos de duración| PUC-01 (paso 4) |
 | BR-04 Integridad temporal | PUC-01 (paso 4) |
 | BR-05 Ausencia de superposición | PUC-01 (paso 7) |
-| BR-06 Slots habilitados por el complejo | PUC-01 (E4.1) |
+| BR-06 Slots habilitados por el complejo | PUC-01 (E4.1), PUC 08 (E3.1) |
 | BR-07 Bloqueo temporal durante pago | PUC-01 (paso 5), PUC-01 (E7.1) |
 | BR-08 Expiración de reserva pendiente | PUC-06 (E3.1) |
 | BR-09 Límite de reservas activas | PUC-01 (E4.3) |
