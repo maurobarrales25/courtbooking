@@ -190,6 +190,86 @@
 
 ---
 
+## BUC-05 — Consultar agenda de reservas
+
+
+| Campo | Descripción |
+|---|---|
+| **Nombre del caso de uso de negocio** | Consultar agenda de reservas |
+| **Disparador** | Un cliente  necesita consultar la disponibilidad de canchas y horarios. Datos que ingresan: fecha, cancha y rango horario deseado. |
+| **Precondiciones** | El complejo posee canchas. |
+| **Interesados** | Cliente. Dueño del complejo. |
+| **Actores** | Cliente. Dueño del complejo. |
+
+
+**Pasos del caso normal:**
+
+
+1. El cliente solicita consultar la disponibilidad de canchas para cierta fecha.
+2. El dueño del complejo se fija en la agenda las canchas disponibles para la fecha dada. 
+3. El dueño del complejo le comunica la disponibilidad de canchas para la fecha dada.
+
+
+**Alternativas:**
+
+
+- **A2.1** — Agenda física
+- **A2.2** — Computadora
+
+**Excepciones:**
+
+- **E1.1** — El complejo no opera en la fecha solicitada (BR-06)
+
+| **Resultado** | El cliente obtiene la disponibilidad actualizada de las canchas y horarios del complejo. |
+|---|---|
+
+
+---
+
+## BUC-06 — Reprogramar reserva
+
+
+| Campo | Descripción |
+|---|---|
+| **Nombre del caso de uso de negocio** | Reprogramar reserva |
+| **Disparador** | Un cliente necesita modificar la fecha u horario de una reserva existente. Datos que ingresan: reserva, nueva fecha y nuevo horario solicitado. |
+| **Precondiciones** | Existe una reserva registrada y vigente a nombre del cliente. |
+| **Interesados** | Cliente. Dueño del complejo. |
+| **Actores** | Cliente. Dueño del complejo. |
+
+
+**Pasos del caso normal:**
+
+
+1. Recibe la solicitud de reprogramación de la reserva.
+2. Verifica los datos de la reserva existente.
+3. Consulta la disponibilidad para la nueva fecha y horario solicitados.
+4. Confirma la disponibilidad del nuevo horario.
+5. Actualiza la reserva con la nueva fecha y horario.
+6. Notifica la reprogramación de la reserva a las partes involucradas.
+
+
+**Alternativas:**
+
+
+- **A3.1** — El cliente solicita otra cancha: consulta la disponibilidad de la cancha alternativa.
+- **A4.1** — El nuevo horario solicitado no se encuentra disponible: informa las opciones de horarios disponibles.
+
+
+**Excepciones:**
+
+
+- **E2.1** — La reserva no existe o no corresponde al cliente: informa que la reprogramación no puede realizarse.
+- **E3.1** — No existen horarios disponibles para la fecha solicitada: informa la imposibilidad de reprogramar la reserva.
+- **E5.1** — La reserva ya se encuentra vencida o cancelada: informa que no puede modificarse.
+
+
+| **Resultado** | La reserva queda actualizada con la nueva fecha y horario acordados. |
+|---|---|
+
+
+---
+
 
 
 
@@ -201,6 +281,7 @@
 | BR-01 Anticipación máxima (30 días) | BUC-01 | E3.1 |
 | BR-02 Duración mínima (1 h) | BUC-01 | E3.1 |
 | BR-05 Ausencia de superposición | BUC-01 | E4.1 |
+| BR-06 Slots habilitados por el complejo | BUC-05 | E1.1 |
 | BR-14 Estados válidos (6 estados)| BUC-02 | E1.1, BUC-03 E1.2, BUC-07 E1.3 |
 | BR-21/22/23 Políticas de cancelación | BUC-02 | Paso 3 |
 | BR-24 Cancelación por complejo = devolución completa | BUC-03 | Paso 3 |
@@ -209,7 +290,5 @@
 ---
 
 TODO: 
-
-- Consultar agenda de reservas
 
 - Reprogramar reserva
