@@ -1,0 +1,20 @@
+-- 001_states.sql
+INSERT INTO states (state_id, name) VALUES (1, 'Artigas');
+INSERT INTO states (state_id, name) VALUES (2, 'Canelones');
+INSERT INTO states (state_id, name) VALUES (3, 'Cerro Largo');
+INSERT INTO states (state_id, name) VALUES (4, 'Colonia');
+INSERT INTO states (state_id, name) VALUES (5, 'Durazno');
+INSERT INTO states (state_id, name) VALUES (6, 'Flores');
+INSERT INTO states (state_id, name) VALUES (7, 'Florida');
+INSERT INTO states (state_id, name) VALUES (8, 'Lavalleja');
+INSERT INTO states (state_id, name) VALUES (9, 'Maldonado');
+INSERT INTO states (state_id, name) VALUES (10, 'Montevideo');
+INSERT INTO states (state_id, name) VALUES (11, 'Paysandú');
+INSERT INTO states (state_id, name) VALUES (12, 'Río Negro');
+INSERT INTO states (state_id, name) VALUES (13, 'Rivera');
+INSERT INTO states (state_id, name) VALUES (14, 'Rocha');
+INSERT INTO states (state_id, name) VALUES (15, 'Salto');
+INSERT INTO states (state_id, name) VALUES (16, 'San José');
+INSERT INTO states (state_id, name) VALUES (17, 'Soriano');
+INSERT INTO states (state_id, name) VALUES (18, 'Tacuarembó');
+INSERT INTO states (state_id, name) VALUES (19, 'Treinta y Tres');
