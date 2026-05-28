@@ -41,7 +41,7 @@ public class ClubConfiguration : IEntityTypeConfiguration<Domain.Clubs.Club>
             .HasForeignKey("club_id")
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(c => c.ScheduleExceptions)
+        builder.HasMany(c => c.ScheduleOverrides)
             .WithOne()
             .HasForeignKey("club_id")
             .OnDelete(DeleteBehavior.Cascade);

@@ -13,7 +13,7 @@ public class Club
     public string Address { get; private set; }
     public Location Location { get; private set; }
     public ICollection<ClubSchedule> Schedules { get; private set; } = [];
-    public ICollection<ClubScheduleException> ScheduleExceptions { get; private set; } = [];
+    public ICollection<ClubScheduleOverride> ScheduleOverrides { get; private set; } = [];
     public ICollection<Courts.Court> Courts { get; private set; } = [];
 
     private Club()
@@ -31,23 +31,23 @@ public class Club
         Location = location
     };
 
-    public ClubScheduleException? GetScheduleException(DateOnly date) =>
-        ScheduleExceptions.FirstOrDefault(e => e.Date == date);
+    public ClubScheduleOverride? GetScheduleOverride(DateOnly date) =>
+        ScheduleOverrides.FirstOrDefault(e => e.Date == date);
 
     public bool IsClosedOn(DateOnly date) =>
-        GetScheduleException(date)?.IsClosed == true;
+        GetScheduleOverride(date)?.IsClosed == true;
 
-    public void AddException(ClubScheduleException exception)
+    public void AddScheduleOverride(ClubScheduleOverride exception)
     {
-        if (GetScheduleException(exception.Date) is null)
-            ScheduleExceptions.Add(exception);
+        if (GetScheduleOverride(exception.Date) is null)
+            ScheduleOverrides.Add(exception);
     }
 
-    public void RemoveException(DateOnly date)
+    public void RemoveScheduleOverride(DateOnly date)
     {
-        var exception = GetScheduleException(date);
+        var exception = GetScheduleOverride(date);
         if (exception is not null)
-            ScheduleExceptions.Remove(exception);
+            ScheduleOverrides.Remove(exception);
     }
 
     public bool IsOpen(DateTimeOffset dateTime)
@@ -61,7 +61,7 @@ public class Club
     // Usado por Court para heredar el horario del club.
     public IReadOnlyList<(TimeSpan Start, TimeSpan End)> GetOpenWindows(DateOnly date)
     {
-        var exception = GetScheduleException(date);
+        var exception = GetScheduleOverride(date);
 
         if (exception?.IsClosed == true) return [];
 
