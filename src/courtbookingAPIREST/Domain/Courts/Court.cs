@@ -50,7 +50,7 @@ public class Court
 
     private IReadOnlyList<(TimeSpan Start, TimeSpan End)> GetAvailableWindows(DateOnly date, Clubs.Club club)
     {
-        var exception = club.GetScheduleException(date);
+        var exception = club.GetScheduleOverride(date);
 
         // La excepción de cierre aplica siempre, sin importar si la cancha sobrescribe o no
         if (exception?.IsClosed == true) return [];
