@@ -15,7 +15,7 @@ public class ClubScheduleOverride
     }
 
     // El club cierra ese día completo
-    public static ClubScheduleOverride CreateClosure(DateOnly date, string reason) => new()
+    public static ClubScheduleOverride CreateDayClosure(DateOnly date, string reason) => new()
     {
         Id = ClubScheduleOverrideID.New(),
         Date = date,
@@ -35,3 +35,6 @@ public class ClubScheduleOverride
         ClosingTime = closingTime
     };
 }
+
+//TODO: Business Rule: Si el club cierra por feriado/motivo extra, debería cerrar el overflow
+// al día siguiente? A decidir.

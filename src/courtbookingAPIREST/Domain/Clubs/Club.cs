@@ -1,5 +1,5 @@
 using courtbookingAPIREST.Domain.Geography;
-using CourtEntity = courtbookingAPIREST.Domain.Courts.Court;
+using CourtEntity = courtbookingAPIREST.Domain.Courts;
 
 namespace courtbookingAPIREST.Domain.Clubs;
 
@@ -37,37 +37,51 @@ public class Club
     public bool IsClosedOn(DateOnly date) =>
         GetScheduleOverride(date)?.IsClosed == true;
 
-    public void AddScheduleOverride(ClubScheduleOverride exception)
+    public void AddScheduleOverride(ClubScheduleOverride scheduleOverride)
     {
-        if (GetScheduleOverride(exception.Date) is null)
-            ScheduleOverrides.Add(exception);
+        if (GetScheduleOverride(scheduleOverride.Date) is null)
+            ScheduleOverrides.Add(scheduleOverride);
+        else if (scheduleOverride.IsClosed)
+        {
+            RemoveScheduleOverride(scheduleOverride.Date);
+            ScheduleOverrides.Add(scheduleOverride);
+        }
+
     }
+    // TODO: Business Rule: Es posible agregar otro override?? 
+    // O debería actualizar el existente? A decidir.
 
     public void RemoveScheduleOverride(DateOnly date)
     {
-        var exception = GetScheduleOverride(date);
-        if (exception is not null)
-            ScheduleOverrides.Remove(exception);
+        var scheduleOverride = GetScheduleOverride(date);
+        if (scheduleOverride is not null)
+            ScheduleOverrides.Remove(scheduleOverride);
     }
 
     public bool IsOpen(DateTimeOffset dateTime)
     {
+        if (Schedules.Count == 0) return false;
+
         var local = TimeZoneInfo.ConvertTime(dateTime, ZonaUruguay);
         var date = DateOnly.FromDateTime(local.DateTime);
-        return !IsClosedOn(date) && Schedules.Any(s => s.IsOpen(dateTime));
+
+        var windows = GetOpenWindows(date);
+
+        return windows.Any(w => local.TimeOfDay >= w.Start && local.TimeOfDay < w.End);
+       
     }
 
     // Ventanas operativas del club para una fecha, con excepciones aplicadas.
     // Usado por Court para heredar el horario del club.
     public IReadOnlyList<(TimeSpan Start, TimeSpan End)> GetOpenWindows(DateOnly date)
     {
-        var exception = GetScheduleOverride(date);
+        var scheduleOverride = GetScheduleOverride(date);
 
-        if (exception?.IsClosed == true) return [];
+        if (scheduleOverride?.IsClosed == true) return [];
 
         // Excepción con horario modificado: reemplaza el schedule base
-        if (exception is { IsClosed: false })
-            return [(exception.OpeningTime!.Value, exception.ClosingTime!.Value)];
+        if (scheduleOverride is { IsClosed: false })
+            return [(scheduleOverride.OpeningTime!.Value, scheduleOverride.ClosingTime!.Value)];
 
         return GetBaseWindows(date);
     }
@@ -110,4 +124,7 @@ public class Club
 
         return merged;
     }
+
+    //TODO: Business Rule: Si cierra por feriado/motivo extra, debería cerrar el overflow al día
+    //siguiente? A decidir.
 }
