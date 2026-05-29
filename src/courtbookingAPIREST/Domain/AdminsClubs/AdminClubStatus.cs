@@ -1,0 +1,1 @@
+public enum AdminClubStatus { Pendiente, Activo, Inactivo }
