@@ -36,7 +36,7 @@
 |---|---|
 | **Nombre del caso de uso de negocio** | Reservar una cancha |
 | **Disparador** | Un cliente quiere reservar en un complejo una cancha para jugar en una fecha y horario determinados. Datos que ingresan: cliente, complejo, cancha, fecha, turno y duración deseada. |
-| **Precondiciones** | El complejo está abierto y tiene canchas disponibles para reservar. El cliente no superó el límite de reservas activas (BR-12). |
+| **Precondiciones** | El complejo está abierto y tiene canchas disponibles para reservar.|
 | **Interesados** | Cliente. Dueño del complejo.|
 | **Actores** | Cliente. Dueño del complejo |
 
