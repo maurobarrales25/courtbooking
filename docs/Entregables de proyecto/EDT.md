@@ -46,7 +46,7 @@ C --> C3["1.2.3 Elaboración de Historias de Usuario"]
 C3 --> C31["1.2.3.1 Redacción de Historias de Usuario"]
 C3 --> C32["1.2.3.2 Definición de Criterios de Aceptación"]
 
-C --> C4["1.2.4 Elaboración de Casos de Uso del Sistema"]
+C --> C4["1.2.4 Elaboración de Product Use Case"]
 C4 --> C41["1.2.4.1 Diagramas de Casos de Uso"]
 C4 --> C42["1.2.4.2 Especificación de Casos de Uso"]
 C4 --> C43["1.2.4.3 Identificación de Actores"]
