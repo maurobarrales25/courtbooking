@@ -37,7 +37,7 @@
 | **Descripción** | El sistema deberá mostrar los turnos disponibles de una cancha para una fecha determinada, considerando únicamente los horarios de operación habilitados por el complejo (BR-08) y excluyendo los turnos ya reservados o bloqueados. |
 | **Justificación** | El jugador necesita conocer la disponibilidad real antes de seleccionar un turno; sin esta consulta no es posible iniciar el proceso de reserva. |
 | **Autor** | Equipo CanchasYa! |
-| **Criterio de verificación** | Dado un complejo con horario de operación configurado y al menos un turno ocupado, el resultado de la consulta excluye los turnos ocupados y los que queden fuera del horario habilitado. |
+| **Criterio de verificación** | Dado un complejo con horario de operación configurado y al menos un turno ocupado, el resultado de la consulta muestra turnos disponibles, excluye los turnos ocupados y los que queden fuera del horario habilitado. |
 | **Satisfacción del interesado** | 5 |
 | **Insatisfacción del interesado** | 5 |
 | **Prioridad** | Must have |
